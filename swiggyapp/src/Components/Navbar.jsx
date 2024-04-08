@@ -4,6 +4,7 @@ import { IoSearch, IoHelpBuoyOutline } from "react-icons/io5";
 import { BiSolidOffer } from "react-icons/bi";
 import { CiShoppingCart } from "react-icons/ci";
 import { NavLink, useNavigate } from "react-router-dom";
+import { IoBagOutline } from "react-icons/io5";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
@@ -91,7 +92,10 @@ function Navbar() {
               </p>
             </div>
             <div className="flex items-center mr-4 gap-2">
-              <NavLink to="/help" className="flex items-center mr-4 gap-2 cursor-pointer">
+              <NavLink
+                to="/help"
+                className="flex items-center mr-4 gap-2 cursor-pointer"
+              >
                 <IoHelpBuoyOutline />
                 <p>Help</p>
               </NavLink>
@@ -104,9 +108,21 @@ function Navbar() {
               <p>Sign In</p>
             </div>
             <div className="flex items-center mr-4 gap-2">
-              <NavLink to="/cart" className="flex items-center mr-4 gap-2 cursor-pointer">
+              <NavLink
+                to="/cart"
+                className="flex items-center mr-4 gap-2 cursor-pointer"
+              >
                 <CiShoppingCart />
                 <p>Cart</p>
+              </NavLink>
+            </div>
+            <div>
+              <NavLink
+                to="/order"
+                className="flex items-center mr-4 gap-2 cursor-pointer"
+              >
+                <IoBagOutline />
+                <p>Orders</p>
               </NavLink>
             </div>
           </div>

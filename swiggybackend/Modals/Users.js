@@ -1,13 +1,13 @@
 const { Sequelize, DataTypes } = require("sequelize");
-const sequelize = require("../Utils/database");
+const sequelize = require("../config/database");
 const User = sequelize.define(
   "User",
   {
     // Model attributes are defined here
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     name: {

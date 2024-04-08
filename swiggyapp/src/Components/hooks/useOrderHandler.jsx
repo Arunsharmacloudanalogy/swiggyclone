@@ -5,7 +5,7 @@ const useOrderHandler = () => {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://localhost:5000/data",
+      url: "http://localhost:4000/data",
       headers: {
         "Content-Type": "application/json",
       },
@@ -21,6 +21,7 @@ const useOrderHandler = () => {
       .catch((error) => {
         toast.error(error);
       });
+      
   };
 
   return { orderHandler };

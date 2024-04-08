@@ -2,7 +2,7 @@ const sequelize = require("sequelize");
 const Order = require("../Modals/Orders");
 const User = require("../Modals/Users");
 
-const addCustomerData = async (req, res) => {
+const addOrder = async (req, res) => {
   const { userId, product } = req.body;
 
   try {
@@ -21,9 +21,9 @@ const addCustomerData = async (req, res) => {
       ordersCount: transformedOrderData.length,
     });
   } catch (err) {
-    console.error("Error in addCustomerData: ", err);
+    console.error("Error in addOrder: ", err);
     res.status(500).json({ message: err.message });
   }
 };
 
-module.exports = { addCustomerData };
+module.exports = { addOrder };

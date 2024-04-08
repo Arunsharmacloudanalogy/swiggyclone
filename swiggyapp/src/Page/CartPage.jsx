@@ -1,22 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import CartItem from "../Components/CartItem";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import useOrderHandler from "../Components/hooks/useOrderHandler";
+import { clearCart } from "../redux/slices/cartslice";
 
 const CartPage = () => {
-  const {orderHandler} = useOrderHandler();
+  const { orderHandler } = useOrderHandler();
   const navigate = useNavigate();
-  const cart = useSelector((state) => state.cart);
-  let id = 101;
-  localStorage.setItem("userId", id);
+  let cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+  const [newcart, setNewCart] = useState(cart);
 
+  //ID OF LOGGED IN USER
   let data = {
     userId: localStorage.getItem("userId"),
     product: cart,
   };
   const handleSubmit = () => {
-    orderHandler(data)
+    orderHandler(data);
+    dispatch(clearCart());
+    // navigate("/order");
   };
   return (
     <div className="relative h-screen bg-blue-200 py-10">

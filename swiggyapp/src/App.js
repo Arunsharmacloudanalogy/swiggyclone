@@ -6,6 +6,7 @@ import HelpPage from "./Page/HelpPage.jsx";
 import ItemPage from "./Page/ItemPage.jsx";
 import SignInPage from "./Page/SignInPage.jsx";
 import { Toaster } from "react-hot-toast";
+import OrderPage from "./Page/OrderPage.jsx";
 const App = () => {
   return (
     <>
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/help" element={<HelpPage />} />
         <Route path="/itempage" element={<ItemPage />} />
         <Route path="/signin" element={<SignInPage />} />
+        <Route path="/order" element={<OrderPage />} />
       </Routes>
     </>
   );
