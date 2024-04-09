@@ -1,18 +1,18 @@
 const { sign } = require("jsonwebtoken");
-const User = require("../Modals/Users");
+const User = require("../modals/Users");
 const brcypt = require("bcrypt");
 const { where } = require("sequelize");
 const signUp = async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
-    //check user exists
     if (!name || !email || !password) {
       return res.status(400).json({
         success: false,
         message: "Please fill all the fields",
       });
     }
+    //check user exists
     const user = await User.findOne({ where: { email: email } });
     if (user) {
       res.status(400).json({
@@ -40,7 +40,7 @@ const signUp = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "new user created",
-      data: newUser
+      data: newUser,
     });
   } catch (err) {
     res.status(500).json({

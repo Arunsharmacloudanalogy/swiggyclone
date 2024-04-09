@@ -1,15 +1,14 @@
 const sequelize = require("sequelize");
-const Order = require("../Modals/Orders");
-const User = require("../Modals/Users");
+const Order = require("../modals/Orders");
+const User = require("../modals/Users");
 
 const addOrder = async (req, res) => {
-  const { userId, product } = req.body;
-
+  const { userId ,product } = req.body;
   try {
     const transformedOrderData = product.map((order) => ({
-      item:order.title,
-      price:order.price,
-      quantity:order.foodQuantity,
+      item: order.title,
+      price: order.price,
+      quantity: order.foodQuantity,
       userId: userId,
     }));
 

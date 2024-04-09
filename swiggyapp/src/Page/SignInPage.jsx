@@ -16,7 +16,7 @@ const SignInPage = () => {
 
   const dataSubmitHandler = (e) => {
     submitHandler(e, signup);
-    toast.success("User created");
+    signup ? toast.success("User created") : toast.success("Logged In");
     navigate("/");
   };
   const changeHandler = (event) => {

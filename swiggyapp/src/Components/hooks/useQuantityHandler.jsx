@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux";
 
 const useQuantityHandler = (quantity, setQuantity, offer, data) => {
   const dispatch = useDispatch();
-  const { title, price, image } = data;
 
+  const { title, price, image } = data;
   const handleIncrement = () => {
     const newQuantity = quantity + 1;
     setQuantity(newQuantity);

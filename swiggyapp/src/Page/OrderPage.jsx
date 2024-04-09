@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import OrderCard from "../Components/OrderCard";
+import Cookies from "js-cookie";
 
 function OrderPage() {
   const [orders, setOrders] = useState([]);
@@ -8,13 +9,12 @@ function OrderPage() {
 
   useEffect(() => {
     //get all the orders from db
-    let userId = localStorage.getItem("userId");
-    console.log(`http://localhost:4000/getOrder/${userId}`);
+    const id = Cookies.get("Id");
     const fetchOrders = async () => {
       try {
         // Using axios to fetch data from the server
         const response = await axios.get(
-          `http://localhost:4000/getOrder/${userId}`
+          `http://localhost:4000/getOrder/${id}`
         );
         setOrders(response.data);
       } catch (error) {
@@ -29,10 +29,10 @@ function OrderPage() {
     return <div>Loading orders...</div>;
   }
   return (
-    <div>
-      {orders.map((order) => (
-        <OrderCard key={order.id} order={order} />
-      ))}
+    <div className="m-2 md:m-4">
+      {orders
+        ? orders.map((order) => <OrderCard key={order.id} order={order} />)
+        : ""}
     </div>
   );
 }

@@ -5,9 +5,11 @@ import { BiSolidOffer } from "react-icons/bi";
 import { CiShoppingCart } from "react-icons/ci";
 import { NavLink, useNavigate } from "react-router-dom";
 import { IoBagOutline } from "react-icons/io5";
+import { useSelector } from "react-redux";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const cart = useSelector((state) => state.cart);
   function logoClickHandler() {
     navigate("/");
   }
@@ -107,13 +109,16 @@ function Navbar() {
               <FaUser />
               <p>Sign In</p>
             </div>
-            <div className="flex items-center mr-4 gap-2">
+            <div className="flex items-center mr-4 gap-2 relative">
               <NavLink
                 to="/cart"
                 className="flex items-center mr-4 gap-2 cursor-pointer"
               >
                 <CiShoppingCart />
                 <p>Cart</p>
+                <p className="absolute -top-[10px] right-[3px] font-bold text-lg text-green-600">
+                  {cart.length}
+                </p>
               </NavLink>
             </div>
             <div>

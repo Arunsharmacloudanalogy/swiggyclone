@@ -8,11 +8,11 @@ const Offer = ({ offer }) => {
   };
   return (
     <div
-      className="flex flex-col rounded-md hover:scale-[0.95] transition-all duration-300 hover:shadow-lg w-full my-5 p-4 cursor-pointer"
+      className="flex flex-col rounded-md hover:scale-[0.95] transition-all duration-300 hover:shadow-lg w-full my-5 px-6 sm:px-0 p-4 cursor-pointer"
       onClick={() => clickHandler(offer)}
     >
       <img
-        className="rounded-md w-full h-56  object-cover object-center"
+        className="rounded-md w-full h-56  object-fill  object-center"
         src={offer.image}
         alt=""
       ></img>

@@ -7,13 +7,14 @@ import ItemPage from "./Page/ItemPage.jsx";
 import SignInPage from "./Page/SignInPage.jsx";
 import { Toaster } from "react-hot-toast";
 import OrderPage from "./Page/OrderPage.jsx";
+import offerdata from "./Data/offerdata.jsx";
 const App = () => {
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/cart" element={<CartPage />} />
+        <Route path="/cart" element={<CartPage offer = {offerdata}/>} />
         <Route path="/help" element={<HelpPage />} />
         <Route path="/itempage" element={<ItemPage />} />
         <Route path="/signin" element={<SignInPage />} />

@@ -1,12 +1,11 @@
 const jwt = require("jsonwebtoken");
 const CryptoJS = require("crypto-js");
-const Users = require("../Modals/Users");
+const Users = require("../modals/Users");
 const bcrypt = require("bcrypt");
 
 require("dotenv").config();
 const signIn = async (req, res) => {
   let { email, password } = req.body;
-
   try {
     //validation krlo
     if (!email || !password) {
@@ -15,20 +14,22 @@ const signIn = async (req, res) => {
         message: "Please fill all the fields",
       });
     }
+    
     //check user registered or not
     let user = await Users.findOne({ where: { email } });
+    console.log(user);
     if (!user) {
       res.staus(400).json({
         success: false,
         message: "User is not registered...",
       });
     }
+     
     const payload = {
       id: user.id,
       name: user.name,
       email: user.email,
     };
-    
     //verify the password
     if (await bcrypt.compare(password, user.password)) {
       //generate token
@@ -38,7 +39,7 @@ const signIn = async (req, res) => {
       // user = user.toObject();
       user.token = token;
       // console.log(token);
-      // user.password = undefined;
+      user.password = undefined;
       const options = {
         expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
         httpOnly: true,
@@ -49,6 +50,7 @@ const signIn = async (req, res) => {
         user,
         message: "Logged in successfully",
       });
+      console.log('successfully signed in');
     } else {
       return res.status(403).json({
         success: false,

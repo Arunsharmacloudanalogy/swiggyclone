@@ -1,27 +1,14 @@
 import axios from "axios";
 import toast from "react-hot-toast";
+import Cookies from "js-cookie";
 // import CryptoJS from "crypto-js";
 const useFormSubmitHandler = (formData) => {
   const submitHandler = (event, signup) => {
     event.preventDefault();
-    const base64urlDecode = (str) => {
-      str = str.replace(/-/g, "+").replace(/_/g, "/");
-      while (str.length % 4 !== 0) {
-        str += "=";
-      }
-      return atob(str);
-    };
 
-    const decodeJWT = (token) => {
-      const parts = token.split(".");
-      if (parts.length !== 3) {
-        throw new Error("Invalid JWT format");
-      }
-      const decodedPayload = base64urlDecode(parts[1]);
-      const payload = JSON.parse(decodedPayload);
-      return payload;
-    };
     let type = signup ? "signup" : "signin";
+    const expirationDate = new Date();
+    expirationDate.setTime(expirationDate.getTime() + 10000);
     let config = {
       method: "post",
       maxBodyLength: Infinity,
@@ -34,12 +21,12 @@ const useFormSubmitHandler = (formData) => {
     axios
       .request(config)
       .then((response) => {
-        localStorage.setItem("userId", response.data.data.id);
-        // const bytes = CryptoJS.AES.decrypt(response.data.ciphertext, "arun");
-        // const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-        // decodeJWT(decryptedData);
-        // toast.success("User created");
-        // navigate("/");
+        if (type === "signin") {
+          Cookies.set("Token", response.data.token, {
+            expires: expirationDate,
+          });
+          Cookies.set("Id", response.data.user.id);
+        }
       })
       .catch((error) => {
         toast.error(error);

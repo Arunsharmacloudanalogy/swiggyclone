@@ -5,23 +5,21 @@ const useOrderHandler = () => {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://localhost:4000/data",
+      url: "http://localhost:4000/addOrder",
       headers: {
         "Content-Type": "application/json",
+        
       },
       data: data,
     };
     axios
       .request(config)
       .then((response) => {
-        console.log(JSON.stringify(response.data));
-        console.log("success");
         toast.success("Order Successful");
       })
       .catch((error) => {
         toast.error(error);
       });
-      
   };
 
   return { orderHandler };
