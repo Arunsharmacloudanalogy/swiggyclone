@@ -27,6 +27,22 @@ const Order = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    pincode: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    landmark: {
+      type: DataTypes.STRING,
+      defaultValue: "No Nearby Location",
+    },
+    city: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
     // Other model options go here

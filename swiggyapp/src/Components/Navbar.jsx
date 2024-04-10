@@ -6,18 +6,43 @@ import { CiShoppingCart } from "react-icons/ci";
 import { NavLink, useNavigate } from "react-router-dom";
 import { IoBagOutline } from "react-icons/io5";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import Cookies from "js-cookie";
+import toast from "react-hot-toast";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
+  const token = Cookies.get("Token");
   function logoClickHandler() {
     navigate("/");
   }
   function signInHandler() {
     navigate("/signin");
   }
+  function logOutHandler() {
+    Cookies.remove("Token");
+    toast.success("Logged Out Successfully");
+    navigate("/");
+  }
+  function orderNavigateHandler() {
+    if (token) {
+      navigate("/orders");
+    } else {
+      toast.error("Please Login First");
+      navigate("/signin");
+    }
+  }
+  function cartNavigateHandler() {
+    if (token) {
+      navigate("/cart");
+    } else {
+      toast.error("Please login first");
+      navigate("/signin");
+    }
+  }
   return (
-    <div className="relative shadow-md w-full h-full">
+    <div className="relative shadow-md w-full h-full bg-blue-100">
       <div className="flex flex-wrap justify-between items-center p-4 max-w-[1200px] mx-auto">
         <div className="flex items-center gap-4 mb-4 md:mb-0">
           <div className="mr-2 text-orange-500">
@@ -82,7 +107,7 @@ function Navbar() {
           } transition-all duration-300`}
         >
           <div className="flex flex-col md:flex-row gap-6 transition-all duration-300">
-            <div className="flex items-center mr-4 gap-2 cursor-pointer">
+            <div className="flex items-center mr-4 gap-2 p-3 cursor-pointer">
               <IoSearch />
               <p>Search</p>
             </div>
@@ -96,7 +121,7 @@ function Navbar() {
             <div className="flex items-center mr-4 gap-2">
               <NavLink
                 to="/help"
-                className="flex items-center mr-4 gap-2 cursor-pointer"
+                className="flex items-center mr-4 gap-2 cursor-pointer p-3"
               >
                 <IoHelpBuoyOutline />
                 <p>Help</p>
@@ -104,32 +129,35 @@ function Navbar() {
             </div>
             <div
               onClick={signInHandler}
-              className="flex items-center mr-4 gap-2 cursor-pointer"
+              className="flex items-center mr-4 gap-2 cursor-pointer p-3 order-tab"
             >
               <FaUser />
               <p>Sign In</p>
             </div>
-            <div className="flex items-center mr-4 gap-2 relative">
-              <NavLink
-                to="/cart"
-                className="flex items-center mr-4 gap-2 cursor-pointer"
-              >
-                <CiShoppingCart />
-                <p>Cart</p>
-                <p className="absolute -top-[10px] right-[3px] font-bold text-lg text-green-600">
-                  {cart.length}
-                </p>
-              </NavLink>
-            </div>
+            <button
+              onClick={cartNavigateHandler}
+              className="flex items-center mr-4 gap-2 cursor-pointer order-tab duration-300 p-3 rounded-md relative"
+            >
+              <CiShoppingCart />
+              <p>Cart</p>
+              <p className="absolute -top-[5px] right-[0px] font-bold text-lg text-black">
+                {cart.length}
+              </p>
+            </button>
             <div>
-              <NavLink
-                to="/order"
-                className="flex items-center mr-4 gap-2 cursor-pointer"
+              <button
+                className="flex items-center mr-4 gap-2 cursor-pointer order-tab duration-300 p-3 rounded-md"
+                onClick={orderNavigateHandler}
               >
                 <IoBagOutline />
-                <p>Orders</p>
-              </NavLink>
+                Orders
+              </button>
             </div>
+            {token && (
+              <button className="cursor-pointer" onClick={logOutHandler}>
+                LogOut
+              </button>
+            )}
           </div>
         </div>
       </div>

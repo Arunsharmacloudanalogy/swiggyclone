@@ -6,7 +6,7 @@ function ItemInfo({ offer }) {
   const { title, rating, time, type, Price, quantity, place, distance } = offer;
   return (
     <div className="relative w-full h-full">
-      <Navbar />
+      
       <div className=" mx-auto flex flex-col mt-10 gap-3 max-w-[1000px] px-[10px]">
         <h1 className="font-bold text-[20px] px-4 leading-[1.7rem] ">
           {title}

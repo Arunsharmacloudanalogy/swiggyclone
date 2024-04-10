@@ -2,12 +2,9 @@ import React from "react";
 import Offer from "./Offer";
 import offerdata from "../Data/offerdata";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 function Restaurants() {
-  const navigate = useNavigate();
-
-  function clickHandler(offer) {
-    navigate("/ItemPage", { state: { offer } });
-  }
+ 
   return (
     <div className="relative max-w-[1200px] px-3 mx-auto ">
       <h1 className="font-bold text-[25px] mb-5 mt-5">
@@ -19,9 +16,7 @@ function Restaurants() {
             <Offer
               key={index}
               offer={offer}
-              onClick={() => {
-                clickHandler(offer);
-              }}
+               
             />
           );
         })}

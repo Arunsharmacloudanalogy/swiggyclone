@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 const useQuantityHandler = (quantity, setQuantity, offer, data) => {
   const dispatch = useDispatch();
 
-  const { title, price, image } = data;
+  const { title, price, image , restaurant} = data;
   const handleIncrement = () => {
     const newQuantity = quantity + 1;
     setQuantity(newQuantity);
@@ -21,7 +21,7 @@ const useQuantityHandler = (quantity, setQuantity, offer, data) => {
 
   const addToCart = (foodQuantity, op) => {
     let { distance, place } = offer;
-    let newItem = { title, price, image, distance, foodQuantity, place };
+    let newItem = { title, price, image, distance, foodQuantity, place ,restaurant };
     dispatch(add({ newItem, op }));
   };
 

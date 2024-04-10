@@ -1,27 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import CartItem from "../Components/CartItem";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import useOrderHandler from "../Components/hooks/useOrderHandler";
-import { clearCart } from "../redux/slices/cartslice";
-import Cookies from "js-cookie";
+ 
 
 const CartPage = ({offer}) => {
-  const { orderHandler } = useOrderHandler();
+ 
   const navigate = useNavigate();
   let cart = useSelector((state) => state.cart);
-  const dispatch = useDispatch();
-  const [newcart, setNewCart] = useState(cart);
+  
   console.log(cart);
-  //ID OF LOGGED IN USER->cookie
-  let data = {
-    userId: Cookies.get("Id"),
-    product: cart,
-  };
+  
   const handleSubmit = () => {
-    orderHandler(data);
-    dispatch(clearCart());
-    // navigate("/order");
+    navigate("/payment");
   };
   return (
     <div className="relative h-screen bg-blue-200 py-10">

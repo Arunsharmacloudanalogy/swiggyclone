@@ -3,9 +3,8 @@ require("dotenv").config();
 
 exports.auth = (req, res, next) => {
   try {
-    console.log("checking token here ", req.cookies);
-    
-    const token = req.cookies.token;
+    const authHeader = req.headers.authorization;
+    const token = authHeader && authHeader.split(" ")[1];
     console.log("token ", token);
     if (!token) {
       return res.status(401).json({
@@ -26,7 +25,6 @@ exports.auth = (req, res, next) => {
     }
 
     next();
-    console.log("after next");
   } catch (err) {
     return res.status(401).json({
       success: false,

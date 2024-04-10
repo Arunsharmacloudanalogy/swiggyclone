@@ -31,8 +31,8 @@
   background: white;
   box-shadow: rgba(0, 0, 0, 0.04) 0px 8px 16px 0px;
 }
-.active {
-  background-color: green;
-  padding: 15px 25px;
-  border: 1px solid #c4c4c4;
+.active,
+.order-tab:focus {
+  background-color: rgba(62, 165, 62, 0.486);
+  border-radius: 10px;
 }

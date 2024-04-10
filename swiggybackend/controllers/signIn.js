@@ -57,22 +57,7 @@ const signIn = async (req, res) => {
         message: "Password do not match",
       });
     }
-    // const decrptPass = CryptoJS.AES.decrypt(
-    //   user.password,
-    //   process.env.SECRET_KEY
-    // ).toString(CryptoJS.enc.Utf8);
-    // if (password === decrptPass) {
-    //   //authenicate the user
-    //   res.status(200).json({
-    //     success: true,
-    //     message: "User loggedIn successfully",
-    //   });
-    // } else {
-    //   res.status(400).json({
-    //     success: false,
-    //     message: "Wrong password",
-    //   });
-    // }
+ 
   } catch (err) {
     res.status(500).json({
       success: false,

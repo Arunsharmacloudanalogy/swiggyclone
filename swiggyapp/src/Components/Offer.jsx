@@ -1,11 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 const Offer = ({ offer }) => {
   const navigate = useNavigate();
-
-  const clickHandler = (offer) => {
-    navigate("/itempage", { state: { offer } });
-  };
+  const token = Cookies.get("Token");
+  function clickHandler(offer) {
+    token ? navigate("/ItemPage", { state: { offer } }) : navigate("/signin");
+  }
   return (
     <div
       className="flex flex-col rounded-md hover:scale-[0.95] transition-all duration-300 hover:shadow-lg w-full my-5 px-6 sm:px-0 p-4 cursor-pointer"

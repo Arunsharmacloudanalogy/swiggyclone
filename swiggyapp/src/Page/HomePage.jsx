@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "../Components/Navbar";
 import Suggestion from "../Components/Suggestion";
 import Restaurants from "../Components/Restaurants";
 import Footer from "../Components/Footer";
@@ -7,7 +6,7 @@ import Footer from "../Components/Footer";
 const HomePage = () => {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <Suggestion />
       <Restaurants />
       <Footer />

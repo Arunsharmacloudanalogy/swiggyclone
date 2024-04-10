@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { add } from "../redux/slices/cartslice";
 function CartItem({ item, offer }) {
-  const { title, image, place, price, foodQuantity } = item;
+  const { title, image, place, price, foodQuantity ,restaurant } = item;
   const [currentQuantity, setCurentQuantity] = useState(foodQuantity);
   const dispatch = useDispatch();
   const handleIncrement = () => {
@@ -20,7 +20,7 @@ function CartItem({ item, offer }) {
   };
   const addToCart = (foodQuantity, op) => {
     let { distance, place } = offer;
-    let newItem = { title, price, image, distance, foodQuantity, place };
+    let newItem = { title, price, image, distance, foodQuantity, place ,restaurant};
     dispatch(add({ newItem, op }));
   };
   return (
@@ -30,7 +30,7 @@ function CartItem({ item, offer }) {
           <img src={image} className="w-[50px] h-[50px]" alt={title} />
           <div className="flex flex-col">
             <p className="font-bold leading-1 tracking-wide text-[11px] md:text-[15px]">
-              Pizza Hut
+             {restaurant}
             </p>
             <p className="text-[10px] md:text-[14px]">{place}</p>
           </div>
@@ -52,7 +52,7 @@ function CartItem({ item, offer }) {
         </div>
       </div>
       <div className="flex gap-2 justify-between items-center">
-        <h2 className="text-sm md:text-[16px]">{title}</h2>
+        <h2 className="text-sm md:text-[16px] w-3/5">{title}</h2>
 
         <span className="text-[12px] md:text-[14px]">
           ₹{price} X {foodQuantity} =

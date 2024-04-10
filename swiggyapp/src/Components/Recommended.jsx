@@ -5,7 +5,7 @@ import { LuMinus } from "react-icons/lu";
 import useQuantityHandler from "./hooks/useQuantityHandler";
 const Recommended = ({ data, offer }) => {
   const [quantity, setQuantity] = useState(0);
-  const { title, price, rating, reviews, description, image } = data;
+  const { title, price, rating, reviews, description, restaurant, image } = data;
   const { handleIncrement, handleDecrement, addToCart } = useQuantityHandler(
     quantity,
     setQuantity,

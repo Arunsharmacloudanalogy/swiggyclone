@@ -7,5 +7,5 @@ const { getOrder } = require("../controllers/getOrder");
 router.get("/getOrder/:userId", getOrder);
 
 //add Orders in db
-router.post("/addOrder", addOrder);
+router.post("/addOrder", auth ,  addOrder);
 module.exports = router;

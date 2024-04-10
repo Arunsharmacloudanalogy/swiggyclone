@@ -12,12 +12,22 @@ const SignInPage = () => {
     email: "",
     password: "",
   });
-  const { submitHandler } = useFormSubmitHandler(formData);
+  const successHandler = (data) => {
+    console.log('here');
+    if(data)
+    {
+      navigate('/')
+    }
+    else{
+      navigate('/signin');
+    }
+  };
+  const { submitHandler } = useFormSubmitHandler(formData, successHandler);
 
   const dataSubmitHandler = (e) => {
     submitHandler(e, signup);
-    signup ? toast.success("User created") : toast.success("Logged In");
-    navigate("/");
+    //  navigate("/")
+    //  navigate("/signin");
   };
   const changeHandler = (event) => {
     const { name, value } = event.target;
