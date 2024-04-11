@@ -10,6 +10,7 @@ function OrderPage() {
   useEffect(() => {
     //get all the orders from db
     const id = Cookies.get("Id");
+    console.log('id is ' , id);
     const fetchOrders = async () => {
       try {
         // Using axios to fetch data from the server

@@ -27,7 +27,7 @@ function Navbar() {
   }
   function orderNavigateHandler() {
     if (token) {
-      navigate("/orders");
+      navigate("/order");
     } else {
       toast.error("Please Login First");
       navigate("/signin");
@@ -118,22 +118,16 @@ function Navbar() {
                 NEW
               </p>
             </div>
-            <div className="flex items-center mr-4 gap-2">
+            <div className="flex items-center mr-4 gap-2 p-3">
               <NavLink
                 to="/help"
-                className="flex items-center mr-4 gap-2 cursor-pointer p-3"
+                className="flex items-center gap-2 cursor-pointer"
               >
                 <IoHelpBuoyOutline />
                 <p>Help</p>
               </NavLink>
             </div>
-            <div
-              onClick={signInHandler}
-              className="flex items-center mr-4 gap-2 cursor-pointer p-3 order-tab"
-            >
-              <FaUser />
-              <p>Sign In</p>
-            </div>
+
             <button
               onClick={cartNavigateHandler}
               className="flex items-center mr-4 gap-2 cursor-pointer order-tab duration-300 p-3 rounded-md relative"
@@ -153,10 +147,18 @@ function Navbar() {
                 Orders
               </button>
             </div>
-            {token && (
+            {token ? (
               <button className="cursor-pointer" onClick={logOutHandler}>
                 LogOut
               </button>
+            ) : (
+              <div
+                onClick={signInHandler}
+                className="flex items-center mr-4 gap-2 cursor-pointer p-3 order-tab"
+              >
+                <FaUser />
+                <p>Sign In</p>
+              </div>
             )}
           </div>
         </div>

@@ -21,7 +21,6 @@ app.use(function (req, res, next) {
   );
   next();
 });
- 
 
 // User.hasMany(Order)
 sequelize.sync({ alter: true });
@@ -61,6 +60,10 @@ app.use(AuthRoute);
 //exporting routers of Order
 const OrderRoutes = require("./routes/OrderRoute.js");
 app.use(OrderRoutes);
+
+//exporting routers of razorpay
+const RazorpayRoute = require("./routes/paymentRoute.js");
+app.use(RazorpayRoute);
 
 //starting server
 app.listen(process.env.PORT, () => {

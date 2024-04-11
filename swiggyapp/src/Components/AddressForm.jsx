@@ -4,6 +4,8 @@ import useOrderHandler from "./hooks/useOrderHandler";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { clearCart } from "../redux/slices/cartslice";
+import axios from "axios";
+
 function AddressForm({ amount, cart }) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -24,22 +26,68 @@ function AddressForm({ amount, cart }) {
   const { orderHandler } = useOrderHandler();
   console.log("Id at address page ", Cookies.get("Id"));
   const dispatch = useDispatch();
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    let data = {
-      userId: Cookies.get("Id"),
-      product: cart,
-      address: formData.address,
-      pinCode: formData.pinCode,
-      city: formData.city,
-      Landmark: formData.Landmark,
-    };
-    console.log(formData);
-    orderHandler(data);
-    dispatch(clearCart());
-    navigate("/order");
-  };
+    try {
+      let data = {
+        userId: Cookies.get("Id"),
+        product: cart,
+        address: formData.address,
+        pinCode: formData.pinCode,
+        city: formData.city,
+        Landmark: formData.Landmark,
+      };
+      console.log(formData);
+      orderHandler(data);
+      dispatch(clearCart());
 
+      // Make payment API call
+      const paymentResponse = await axios.post(
+        "http://localhost:4000/payment",
+        { amount }
+      );
+      const order = paymentResponse.data.order;
+      console.log("order here ", order);
+      console.log("total amount ", amount);
+
+      // Fetch key
+      const keyResponse = await axios.get("http://localhost:4000/getkey");
+      const key = keyResponse.data.key;
+
+      // Create options for Razorpay
+      const options = {
+        key,
+        amount: amount * 100,
+        currency: "INR",
+        name: "Arun sharma",
+        order_id: order.id,
+        description: "Tutorial of RazorPay",
+        image: "https://avatars.githubusercontent.com/u/25058652?v=4",
+        handler: function (response) {
+          alert(response.razorpay_payment_id);
+          alert(response.razorpay_order_id);
+          alert(response.razorpay_signature);
+        },
+        prefill: {
+          name: "Arun sharma",
+          email: "arunmadhopur750@gmail.com",
+          contact: "9116016932",
+        },
+        notes: {
+          address: "Razorpay corporate office",
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
+      console.log(window);
+      const razor = new window.Razorpay(options);
+      razor.open();
+      navigate("/order");
+    } catch (error) {
+      console.error("Error occurred during payment:", error);
+    }
+  };
   return (
     <div className="p-2 md:p-6 mx-auto bg-white rounded-lg shadow-md md:w-3/4">
       <h2 className="text-xl md:text-2xl font-semibold mb-4">Address Form</h2>
