@@ -8,6 +8,7 @@ const User = require("./modals/Users.js");
 const Order = require("./modals/Orders.js");
 const { HmacSHA512 } = require("crypto-js");
 const cookieParser = require("cookie-parser");
+const clerkWebhookHandler = require('./webhook/clerkWebhookHandler.js')
 require("dotenv").config();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -65,6 +66,8 @@ app.use(OrderRoutes);
 const RazorpayRoute = require("./routes/paymentRoute.js");
 app.use(RazorpayRoute);
 
+//clerk routers 
+app.post('/webhooks/clerk', clerkWebhookHandler);
 //starting server
 app.listen(process.env.PORT, () => {
   console.log(`App is running of PORT : ${process.env.PORT}`);

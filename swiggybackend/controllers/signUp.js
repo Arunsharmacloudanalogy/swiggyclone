@@ -1,7 +1,7 @@
 const { sign } = require("jsonwebtoken");
 const User = require("../modals/Users");
 const brcypt = require("bcrypt");
-const { where } = require("sequelize");
+const mailSender = require("../utils/mailSender");
 const signUp = async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -19,6 +19,7 @@ const signUp = async (req, res) => {
         success: false,
         message: "User already exists",
       });
+      return;
     }
     //secure password
     let hashedPassword;
@@ -37,6 +38,11 @@ const signUp = async (req, res) => {
       email,
       password: hashedPassword,
     });
+    try {
+      await mailSender(email, `Swiggy | Your best food Partner 🍔`);
+    } catch (error) {
+      console.error("Failed to send email:", error);
+    }
     res.status(200).json({
       success: true,
       message: "new user created",

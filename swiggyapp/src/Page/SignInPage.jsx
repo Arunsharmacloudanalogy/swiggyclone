@@ -2,35 +2,42 @@ import React, { useState } from "react";
 import useFormSubmitHandler from "../Components/hooks/useFormSubmitHandler";
 import { useNavigate } from "react-router";
 import toast from "react-hot-toast";
+import Spinner from "../Components/Spinner";
 
 const SignInPage = () => {
   const navigate = useNavigate();
 
   const [signup, setSignUp] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [formData, setFromData] = useState({
     name: "",
     email: "",
     password: "",
   });
   const successHandler = (data) => {
-    console.log('here');
-    if(data)
-    {
-      navigate('/')
-    }
-    else{
-      navigate('/signin');
+    console.log("here");
+    if (data) {
+      navigate("/");
+    } else {
+      navigate("/signin");
     }
   };
-  const { submitHandler } = useFormSubmitHandler(formData, successHandler);
+  const { submitHandler } = useFormSubmitHandler(
+    formData,
+    successHandler,
+    setLoading
+  );
 
   const dataSubmitHandler = (e) => {
+    setLoading(true);
     submitHandler(e, signup);
+
     //  navigate("/")
     //  navigate("/signin");
   };
   const changeHandler = (event) => {
     const { name, value } = event.target;
+
     setFromData((prev) => ({
       ...prev,
       [name]: value,
@@ -39,6 +46,7 @@ const SignInPage = () => {
   const authToggle = () => {
     setSignUp(!signup);
   };
+
   return (
     <div class="bg-gray-200 min-h-screen flex items-center justify-center">
       <div class="bg-white p-8 rounded-lg shadow-md max-w-md w-full">
@@ -94,16 +102,17 @@ const SignInPage = () => {
           <div class="mb-4">
             <button
               type="submit"
+              disabled={loading}
               class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none"
             >
-              {signup ? "Sign up" : "Login"}
+              {loading ? <Spinner /> : signup ? "Sign up" : "Login"}
             </button>
           </div>
         </form>
         <div className="flex gap-3 ">
           <p>Already a user? </p>
           <button className="cursor-pointer" onClick={authToggle}>
-            {signup ? "Signin" : "Signup"}
+            { signup ? "Signin" : "Signup"}
           </button>
         </div>
       </div>

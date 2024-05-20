@@ -111,7 +111,7 @@ function Navbar() {
               <IoSearch />
               <p>Search</p>
             </div>
-            <div className="flex items-center mr-4 relative gap-2 cursor-pointer">
+            <div className="flex items-center mr-4 relative gap-2 p-3 cursor-pointer">
               <BiSolidOffer />
               <p>Offers</p>
               <p className="absolute -top-[10px] left-[60px] md:-right-[5px] text-[12px] text-blue-500">
@@ -134,7 +134,7 @@ function Navbar() {
             >
               <CiShoppingCart />
               <p>Cart</p>
-              <p className="absolute -top-[5px] right-[0px] font-bold text-lg text-black">
+              <p className="absolute -top-[5px] max-md:left-[75px] md:right-[0px] font-bold text-lg text-black">
                 {cart.length}
               </p>
             </button>
@@ -148,7 +148,10 @@ function Navbar() {
               </button>
             </div>
             {token ? (
-              <button className="cursor-pointer" onClick={logOutHandler}>
+              <button
+                onClick={logOutHandler}
+                className="flex items-center mr-4 gap-2 cursor-pointer p-3 order-tab"
+              >
                 LogOut
               </button>
             ) : (
